@@ -34,7 +34,7 @@
       perspective: 1000px;
     }
 
-    /* Canvas de Partículas Premium */
+    /* Canvas de Partículas */
     #particles-canvas {
       position: absolute;
       top: 0;
@@ -58,85 +58,106 @@
       z-index: 2;
     }
 
-    /* Portal Multiverso */
+    /* Fondo Animado de Telaraña (Sustituye a la ciudad) */
+    .multiverse-web-bg {
+      position: absolute;
+      width: 140vmax;
+      height: 140vmax;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-image: radial-gradient(circle, transparent 20%, rgba(217, 4, 41, 0.05) 21%, transparent 22%),
+                        repeating-conic-gradient(from 0deg, rgba(255,255,255,0.03) 0deg 15deg, transparent 15deg 30deg);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 3;
+      animation: rotateWebBg 40s linear infinite;
+    }
+
+    @keyframes rotateWebBg {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    /* Portal Multiverso Animado */
     .multiverse-portal {
       position: absolute;
-      bottom: 120px;
+      bottom: 80px;
       right: 5%;
-      width: 140px;
-      height: 140px;
-      background: radial-gradient(circle, rgba(255,255,255,0) 40%, rgba(255,0,85,0.8) 60%, rgba(255,183,3,1) 100%);
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(255,255,255,0) 35%, rgba(255,0,85,0.8) 60%, rgba(255,183,3,1) 100%);
       border-radius: 50%;
       box-shadow: 0 0 35px #ff0055, 0 0 70px #ffb703, inset 0 0 25px #fff;
       z-index: 3;
+      pointer-events: none;
       animation: portalPulse 4s linear infinite;
     }
 
     @keyframes portalPulse {
       0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
-      50% { transform: rotate(180deg) scale(1.08); filter: hue-rotate(40deg); }
+      50% { transform: rotate(180deg) scale(1.1); filter: hue-rotate(40deg); }
       100% { transform: rotate(360deg) scale(1); filter: hue-rotate(0deg); }
     }
 
-    /* Silueta Ciudad CORREGIDA (Sin Bug y Entendible) */
-    .skyline {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      height: 200px;
-      background: linear-gradient(to bottom, #111 0%, #000 100%);
-      z-index: 4;
-      /* Silueta más limpia y estable */
-      clip-path: polygon(
-        0% 100%, 0% 70%, 5% 65%, 10% 70%, 12% 50%, 18% 50%, 20% 70%,
-        25% 60%, 30% 60%, 32% 75%, 35% 30%, 42% 30%, 45% 70%,
-        48% 55%, 53% 55%, 55% 75%, 60% 40%, 68% 40%, 70% 70%,
-        75% 10%, 82% 10%, 85% 65%, 90% 50%, 95% 50%, 100% 70%, 100% 100%
-      );
-    }
-
-    /* Spider-Man SVG Inicial (Corregido y Balanceándose SOBRE la Pancarta) */
+    /* Spider-Man Container */
     .spidey-container {
       position: absolute;
-      top: -60px; /* Ajuste para que se vea más sobre la tarjeta */
-      left: 50%; /* Centrado inicial */
+      top: -60px;
+      left: 50%;
       transform: translateX(-50%);
-      z-index: 30; /* Capa por encima de la pancarta */
+      z-index: 30;
       display: flex;
       flex-direction: column;
       align-items: center;
       transform-origin: top center;
-      /* Nueva animación que lo balancea por encima del contenedor */
       animation: swingOverCard 4s ease-in-out infinite alternate;
       transition: all 0.5s ease;
     }
 
-    /* Animación de balanceo sobre la tarjeta */
+    /* Animación de Balanceo Principal */
     @keyframes swingOverCard {
       0% {
         transform: translateX(-150px) translateY(0) rotate(-25deg);
       }
       50% {
-        transform: translateX(-50%) translateY(10px) rotate(0deg); /* Pasa por el centro */
+        transform: translateX(-50%) translateY(10px) rotate(0deg);
       }
       100% {
         transform: translateX(50px) translateY(0) rotate(25deg);
       }
     }
 
+    /* Animación para la Pantalla de Éxito */
+    .spidey-swinging-overlay {
+      animation: swingSuccess 3.5s ease-in-out infinite alternate !important;
+    }
+
+    @keyframes swingSuccess {
+      0% {
+        transform: translateX(-130px) translateY(5px) rotate(-30deg);
+      }
+      50% {
+        transform: translateX(-50%) translateY(15px) rotate(0deg);
+      }
+      100% {
+        transform: translateX(30px) translateY(5px) rotate(30deg);
+      }
+    }
+
     .web-line {
       width: 2px;
-      height: 220px; /* Un poco más larga para el balanceo */
+      height: 220px;
       background: linear-gradient(to bottom, rgba(255,255,255,0.2), #fff 80%);
       box-shadow: 0 0 8px #fff;
     }
 
     .spidey-svg {
-      width: 70px; /* Ligeramente más grande */
+      width: 70px;
       height: auto;
       margin-top: -15px;
       filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
-      transform: rotate(180deg); /* Colgando boca abajo */
+      transform: rotate(180deg);
     }
 
     #eye-left, #eye-right {
@@ -149,31 +170,10 @@
       95% { transform: scaleY(0.1); }
     }
 
-    /* Balanceo de Spider-Man SOBRE LA TARJETA tras presionar SÍ (Ajustado) */
-    .spidey-swinging-overlay {
-      position: absolute !important;
-      top: 0 !important;
-      left: 50% !important;
-      transform: translateX(-50%) !important;
-      z-index: 40 !important;
-      animation: swingOverCardMobileSuccess 3s ease-in-out infinite alternate !important;
-      transform-origin: top center !important;
-    }
-
-    .spidey-swinging-overlay .web-line {
-      height: 130px !important;
-    }
-
-    /* Animación para la pantalla de éxito */
-    @keyframes swingOverCardMobileSuccess {
-      0% { transform: translateX(-140px) translateY(0) rotate(-35deg) scale(1); }
-      100% { transform: translateX(40px) translateY(0) rotate(35deg) scale(1); }
-    }
-
     /* Contenedores Principales */
     .container {
       position: relative;
-      z-index: 10; /* Spider-Man (z-index 30) pasará encima */
+      z-index: 10;
       text-align: center;
       width: 90%;
       max-width: 520px;
@@ -189,14 +189,12 @@
       transition: transform 0.15s ease-out, opacity 0.4s ease, scale 0.4s ease;
     }
 
-    /* Flotación 3D constante */
     @keyframes mobileCardFloat {
       0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
       50% { transform: translateY(-8px) rotateX(2deg) rotateY(-3deg); }
       100% { transform: translateY(4px) rotateX(-2deg) rotateY(3deg); }
     }
 
-    /* Brillo de borde pulsante */
     @keyframes borderGlow {
       0% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(217, 4, 41, 0.3); }
       100% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 183, 3, 0.5); }
@@ -397,7 +395,7 @@
       .tick-movie { font-size: 1.15rem; }
       .tick-info { font-size: 0.65rem; }
       .success-message { font-size: 0.9rem; }
-      .multiverse-portal { width: 100px; height: 100px; bottom: 80px; }
+      .multiverse-portal { width: 100px; height: 100px; bottom: 50px; }
       .spidey-svg { width: 60px; }
       .web-line { height: 190px; }
       @keyframes swingOverCard {
@@ -414,11 +412,10 @@
   <canvas id="particles-canvas"></canvas>
 
   <div class="halftone"></div>
+  <div class="multiverse-web-bg"></div>
   <div class="multiverse-portal"></div>
-  <!-- Silueta Ciudad Corregida -->
-  <div class="skyline"></div>
 
-  <!-- Spider-Man Balanceándose SOBRE la Pancarta (Corregido y Ajustado) -->
+  <!-- Spider-Man Balanceándose sobre las pancartas -->
   <div class="spidey-container" id="spidey">
     <div class="web-line"></div>
     <svg class="spidey-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -535,7 +532,7 @@
       window.addEventListener('deviceorientation', (e) => {
         if (!e.gamma || !e.beta) return;
         const target = successScreen.classList.contains('hidden') ? mainContainer : successScreen;
-        target.style.animation = 'borderGlow 3s ease-in-out infinite alternate'; // Quita flotación automática
+        target.style.animation = 'borderGlow 3s ease-in-out infinite alternate';
         const tiltX = Math.min(Math.max((e.beta - 40) / 3, -10), 10);
         const tiltY = Math.min(Math.max(e.gamma / 3, -10), 10);
         target.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
@@ -586,13 +583,15 @@
       noBtn.style.display = 'none';
       mainContainer.style.opacity = '0';
       mainContainer.style.transform = 'scale(0.8)';
+      
       setTimeout(() => {
           mainContainer.classList.add('hidden');
           successScreen.classList.remove('hidden');
-          spidey.classList.add('spidey-swinging-overlay'); // Cambia animación
+          // Mantiene la animación activando la clase de éxito
+          spidey.classList.add('spidey-swinging-overlay');
       }, 400);
 
-      // Rafaga de telarañas
+      // Ráfaga de telarañas
       for(let i = 0; i < 12; i++) {
         setTimeout(() => {
           createWebShot(
