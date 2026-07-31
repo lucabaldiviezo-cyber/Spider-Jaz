@@ -58,26 +58,6 @@
       z-index: 2;
     }
 
-    /* Portal Multiverso */
-    .multiverse-portal {
-      position: absolute;
-      bottom: 120px;
-      right: 5%;
-      width: 140px;
-      height: 140px;
-      background: radial-gradient(circle, rgba(255,255,255,0) 40%, rgba(255,0,85,0.8) 60%, rgba(255,183,3,1) 100%);
-      border-radius: 50%;
-      box-shadow: 0 0 35px #ff0055, 0 0 70px #ffb703, inset 0 0 25px #fff;
-      z-index: 3;
-      animation: portalPulse 4s linear infinite;
-    }
-
-    @keyframes portalPulse {
-      0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
-      50% { transform: rotate(180deg) scale(1.08); filter: hue-rotate(40deg); }
-      100% { transform: rotate(360deg) scale(1); filter: hue-rotate(0deg); }
-    }
-
     /* Silueta Ciudad */
     .skyline {
       position: absolute;
@@ -148,8 +128,7 @@
       left: 50% !important;
       right: auto !important;
       z-index: 40 !important;
-      /* Corrección: Animación sin fin y más fluida */
-      animation: swingOverCardMobile 4s linear infinite !important;
+      animation: swingOverCardMobile 2.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate !important;
       transform-origin: top center !important;
     }
 
@@ -157,11 +136,9 @@
       height: 110px !important;
     }
 
-    /* Corrección: Keyframes para un ciclo continuo y suave */
     @keyframes swingOverCardMobile {
-      0% { transform: translateX(-140px) rotate(-35deg) scale(1); }
-      50% { transform: translateX(80px) rotate(35deg) scale(1); }
-      100% { transform: translateX(-140px) rotate(-35deg) scale(1); }
+      0% { transform: translateX(-100px) rotate(-22deg) scale(1); }
+      100% { transform: translateX(40px) rotate(22deg) scale(1); }
     }
 
     /* Contenedores Principales con Animación 3D para Móvil */
@@ -443,7 +420,6 @@
       .tick-movie { font-size: 1.15rem; }
       .tick-info { font-size: 0.65rem; }
       .success-message { font-size: 0.9rem; }
-      .multiverse-portal { width: 100px; height: 100px; bottom: 80px; }
     }
   </style>
 </head>
@@ -453,7 +429,6 @@
   <canvas id="particles-canvas"></canvas>
 
   <div class="halftone"></div>
-  <div class="multiverse-portal"></div>
   <div class="skyline"></div>
 
   <!-- Spider-Man Colgando -->
@@ -592,7 +567,6 @@
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', (e) => {
         if (!e.gamma || !e.beta) return;
-        // Quita la animación CSS automática si hay giroscopio interactivo activo
         mainContainer.style.animation = 'borderGlow 3s ease-in-out infinite alternate';
         
         const tiltX = Math.min(Math.max((e.beta - 40) / 3, -12), 12);
