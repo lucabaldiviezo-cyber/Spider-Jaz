@@ -94,38 +94,50 @@
       pointer-events: none;
     }
 
-    /* Spider-Man Contenedor Inicial */
+    /* ========================================================
+       SPIDER-MAN: Sistema de Péndulo Estable (Sin bugs)
+       ======================================================== */
     .spidey-container {
       position: absolute;
-      top: -15px;
-      right: 12%;
-      z-index: 25;
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 1px;
+      z-index: 50; /* Siempre al frente de la tarjeta y las entradas */
+      pointer-events: none;
+      transform-origin: top center;
+      will-change: transform;
+      animation: swingPendulum 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes swingPendulum {
+      0% {
+        transform: rotate(-28deg);
+      }
+      100% {
+        transform: rotate(28deg);
+      }
+    }
+
+    .spidey-body {
       display: flex;
       flex-direction: column;
       align-items: center;
-      transform-origin: top center;
-      animation: swingInitial 3.5s ease-in-out infinite alternate;
-      pointer-events: none;
-      will-change: transform;
-    }
-
-    @keyframes swingInitial {
-      0% { transform: rotate(-6deg); }
-      100% { transform: rotate(6deg); }
+      transform: translateY(-10px);
     }
 
     .web-line {
       width: 2px;
-      height: 110px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.2), #fff 80%);
+      height: 145px; /* Altura calibrada para pasar justo frente a los tickets */
+      background: linear-gradient(to bottom, rgba(255,255,255,0.2), #fff 85%);
       box-shadow: 0 0 6px #fff;
     }
 
     .spidey-svg {
-      width: 48px;
+      width: 52px;
       height: auto;
-      margin-top: -5px;
-      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.7));
+      margin-top: -6px;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.8));
       transform: rotate(180deg);
     }
 
@@ -137,32 +149,6 @@
     @keyframes eyeBlink {
       0%, 90%, 100% { transform: scaleY(1); }
       95% { transform: scaleY(0.1); }
-    }
-
-    /* BALANCEO FLUIDO POR DELANTE DE LAS ENTRADAS */
-    .spidey-swimming-success {
-      top: -10px !important;
-      left: 50% !important;
-      right: auto !important;
-      z-index: 50 !important; /* POR DELANTE DE LA TARJETA Y TICKETS */
-      pointer-events: none;
-      animation: swingFrontFluid 3.2s ease-in-out infinite alternate !important;
-    }
-
-    .spidey-swimming-success .web-line {
-      height: 115px !important; /* Extensión ideal para quedar frente a las entradas */
-    }
-
-    @keyframes swingFrontFluid {
-      0% {
-        transform: translate3d(-105px, 0, 0) rotate(-22deg);
-      }
-      50% {
-        transform: translate3d(0px, 12px, 0) rotate(0deg);
-      }
-      100% {
-        transform: translate3d(105px, 0, 0) rotate(22deg);
-      }
     }
 
     /* Tarjeta Principal y Pantalla Final */
@@ -408,19 +394,21 @@
   <div class="multiverse-portal"></div>
   <div class="city-glow"></div>
 
-  <!-- Spider-Man SVG Inicial -->
-  <div class="spidey-container" id="spidey">
-    <div class="web-line"></div>
-    <svg class="spidey-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-        <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0z" fill="#d90429"/>
-        <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208s208-93.1 208-208S370.9 48 256 48z" fill="#1d3557"/>
-        <path d="M256 80c-97.2 0-176 78.8-176 176s78.8 176 176 176s176-78.8 176-176S353.2 80 256 80z" fill="#d90429"/>
-        <path d="M256 80v352M80 256h352M131.5 131.5l249 249M131.5 380.5l249-249" stroke="#000" stroke-width="8" fill="none"/>
-        <path d="M256 120c75.1 0 136 60.9 136 136s-60.9 136-136 136s-136-60.9-136-136s60.9-136 136-136z" stroke="#000" stroke-width="8" fill="none"/>
-        <path d="M256 170c47.5 0 86 38.5 86 86s-38.5 86-86 86s-86-38.5-86-86s38.5-86 86-86z" stroke="#000" stroke-width="8" fill="none"/>
-        <path id="eye-left" d="M190 220c-30 0-50 25-50 50s20 40 50 40s40-15 40-40s-10-50-40-50z" fill="#fff" stroke="#000" stroke-width="12"/>
-        <path id="eye-right" d="M322 220c30 0 50 25 50 50s-20 40-50 40s-40-15-40-40s10-50 40-50z" fill="#fff" stroke="#000" stroke-width="12"/>
-    </svg>
+  <!-- Spider-Man: Único elemento con péndulo contiguo -->
+  <div class="spidey-container">
+    <div class="spidey-body">
+      <div class="web-line"></div>
+      <svg class="spidey-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0z" fill="#d90429"/>
+          <path d="M256 48C141.1 48 48 141.1 48 256s93.1 208 208 208s208-93.1 208-208S370.9 48 256 48z" fill="#1d3557"/>
+          <path d="M256 80c-97.2 0-176 78.8-176 176s78.8 176 176 176s176-78.8 176-176S353.2 80 256 80z" fill="#d90429"/>
+          <path d="M256 80v352M80 256h352M131.5 131.5l249 249M131.5 380.5l249-249" stroke="#000" stroke-width="8" fill="none"/>
+          <path d="M256 120c75.1 0 136 60.9 136 136s-60.9 136-136 136s-136-60.9-136-136s60.9-136 136-136z" stroke="#000" stroke-width="8" fill="none"/>
+          <path d="M256 170c47.5 0 86 38.5 86 86s-38.5 86-86 86s-86-38.5-86-86s38.5-86 86-86z" stroke="#000" stroke-width="8" fill="none"/>
+          <path id="eye-left" d="M190 220c-30 0-50 25-50 50s20 40 50 40s40-15 40-40s-10-50-40-50z" fill="#fff" stroke="#000" stroke-width="12"/>
+          <path id="eye-right" d="M322 220c30 0 50 25 50 50s-20 40-50 40s-40-15-40-40s10-50 40-50z" fill="#fff" stroke="#000" stroke-width="12"/>
+      </svg>
+    </div>
   </div>
 
   <!-- Contenedor Principal / Pregunta -->
@@ -485,7 +473,6 @@
     const yesBtn = document.getElementById('yesBtn');
     const mainContainer = document.getElementById('mainContainer');
     const successScreen = document.getElementById('successScreen');
-    const spidey = document.getElementById('spidey');
     const webTemplate = document.getElementById('web-template');
 
     /* Sistema de Partículas */
@@ -619,8 +606,7 @@
           successScreen.classList.remove('hidden');
       }, 350);
 
-      spidey.classList.add('spidey-swimming-success');
-
+      // Disparos festivos de telaraña
       for(let i = 0; i < 10; i++) {
         setTimeout(() => {
           createWebShot(
