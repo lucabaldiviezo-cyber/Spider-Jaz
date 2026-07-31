@@ -34,7 +34,7 @@
       perspective: 1000px;
     }
 
-    /* Canvas de Partículas */
+    /* Canvas de Partículas Premium */
     #particles-canvas {
       position: absolute;
       top: 0;
@@ -58,105 +58,76 @@
       z-index: 2;
     }
 
-    /* Fondo Animado de Telaraña (Sustituye a la ciudad) */
-    .multiverse-web-bg {
-      position: absolute;
-      width: 140vmax;
-      height: 140vmax;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-image: radial-gradient(circle, transparent 20%, rgba(217, 4, 41, 0.05) 21%, transparent 22%),
-                        repeating-conic-gradient(from 0deg, rgba(255,255,255,0.03) 0deg 15deg, transparent 15deg 30deg);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 3;
-      animation: rotateWebBg 40s linear infinite;
-    }
-
-    @keyframes rotateWebBg {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    /* Portal Multiverso Animado */
+    /* Portal Multiverso */
     .multiverse-portal {
       position: absolute;
-      bottom: 80px;
+      bottom: 120px;
       right: 5%;
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle, rgba(255,255,255,0) 35%, rgba(255,0,85,0.8) 60%, rgba(255,183,3,1) 100%);
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(255,255,255,0) 40%, rgba(255,0,85,0.8) 60%, rgba(255,183,3,1) 100%);
       border-radius: 50%;
       box-shadow: 0 0 35px #ff0055, 0 0 70px #ffb703, inset 0 0 25px #fff;
       z-index: 3;
-      pointer-events: none;
       animation: portalPulse 4s linear infinite;
     }
 
     @keyframes portalPulse {
       0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
-      50% { transform: rotate(180deg) scale(1.1); filter: hue-rotate(40deg); }
+      50% { transform: rotate(180deg) scale(1.08); filter: hue-rotate(40deg); }
       100% { transform: rotate(360deg) scale(1); filter: hue-rotate(0deg); }
     }
 
-    /* Spider-Man Container */
+    /* Silueta Ciudad */
+    .skyline {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(to bottom, #090014 0%, #000 100%);
+      z-index: 4;
+      clip-path: polygon(
+        0% 100%, 0% 55%, 2% 50%, 4% 55%, 5% 40%, 7% 40%, 8% 55%,
+        10% 30%, 13% 30%, 15% 50%, 17% 20%, 20% 20%, 22% 60%,
+        25% 45%, 28% 45%, 30% 60%, 33% 10%, 38% 10%, 40% 55%,
+        43% 40%, 46% 40%, 48% 65%, 52% 35%, 55% 35%, 58% 60%,
+        61% 15%, 66% 15%, 68% 50%, 71% 0%, 76% 0%, 78% 40%,
+        81% 25%, 84% 25%, 86% 60%, 89% 15%, 93% 15%, 95% 45%,
+        100% 45%, 100% 100%
+      );
+    }
+
+    /* Spider-Man SVG Inicial */
     .spidey-container {
       position: absolute;
-      top: -60px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: -40px;
+      right: 10%;
       z-index: 30;
       display: flex;
       flex-direction: column;
       align-items: center;
       transform-origin: top center;
-      animation: swingOverCard 4s ease-in-out infinite alternate;
+      animation: swing 3s ease-in-out infinite alternate;
       transition: all 0.5s ease;
     }
 
-    /* Animación de Balanceo Principal */
-    @keyframes swingOverCard {
-      0% {
-        transform: translateX(-150px) translateY(0) rotate(-25deg);
-      }
-      50% {
-        transform: translateX(-50%) translateY(10px) rotate(0deg);
-      }
-      100% {
-        transform: translateX(50px) translateY(0) rotate(25deg);
-      }
-    }
-
-    /* Animación para la Pantalla de Éxito */
-    .spidey-swinging-overlay {
-      animation: swingSuccess 3.5s ease-in-out infinite alternate !important;
-    }
-
-    @keyframes swingSuccess {
-      0% {
-        transform: translateX(-130px) translateY(5px) rotate(-30deg);
-      }
-      50% {
-        transform: translateX(-50%) translateY(15px) rotate(0deg);
-      }
-      100% {
-        transform: translateX(30px) translateY(5px) rotate(30deg);
-      }
+    @keyframes swing {
+      0% { transform: rotate(-8deg); }
+      100% { transform: rotate(8deg); }
     }
 
     .web-line {
       width: 2px;
-      height: 220px;
+      height: 180px;
       background: linear-gradient(to bottom, rgba(255,255,255,0.2), #fff 80%);
       box-shadow: 0 0 8px #fff;
     }
 
     .spidey-svg {
-      width: 70px;
+      width: 60px;
       height: auto;
-      margin-top: -15px;
-      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8));
+      margin-top: -10px;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.7));
       transform: rotate(180deg);
     }
 
@@ -170,7 +141,30 @@
       95% { transform: scaleY(0.1); }
     }
 
-    /* Contenedores Principales */
+    /* Balanceo de Spider-Man SOBRE LA TARJETA tras presionar SÍ */
+    .spidey-swinging-overlay {
+      position: absolute !important;
+      top: 0 !important;
+      left: 50% !important;
+      right: auto !important;
+      z-index: 40 !important;
+      /* Corrección: Animación sin fin y más fluida */
+      animation: swingOverCardMobile 4s linear infinite !important;
+      transform-origin: top center !important;
+    }
+
+    .spidey-swinging-overlay .web-line {
+      height: 110px !important;
+    }
+
+    /* Corrección: Keyframes para un ciclo continuo y suave */
+    @keyframes swingOverCardMobile {
+      0% { transform: translateX(-140px) rotate(-35deg) scale(1); }
+      50% { transform: translateX(80px) rotate(35deg) scale(1); }
+      100% { transform: translateX(-140px) rotate(-35deg) scale(1); }
+    }
+
+    /* Contenedores Principales con Animación 3D para Móvil */
     .container {
       position: relative;
       z-index: 10;
@@ -186,18 +180,30 @@
       box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(217, 4, 41, 0.3);
       transform-style: preserve-3d;
       animation: mobileCardFloat 5s ease-in-out infinite alternate, borderGlow 3s ease-in-out infinite alternate;
-      transition: transform 0.15s ease-out, opacity 0.4s ease, scale 0.4s ease;
+      transition: transform 0.15s ease-out;
     }
 
+    /* Flotación 3D constante ideal para pantallas táctiles */
     @keyframes mobileCardFloat {
-      0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
-      50% { transform: translateY(-8px) rotateX(2deg) rotateY(-3deg); }
-      100% { transform: translateY(4px) rotateX(-2deg) rotateY(3deg); }
+      0% {
+        transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+      }
+      50% {
+        transform: translateY(-8px) rotateX(3deg) rotateY(-4deg);
+      }
+      100% {
+        transform: translateY(4px) rotateX(-3deg) rotateY(4deg);
+      }
     }
 
+    /* Brillo de borde pulsante */
     @keyframes borderGlow {
-      0% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(217, 4, 41, 0.3); }
-      100% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 183, 3, 0.5); }
+      0% {
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(217, 4, 41, 0.3);
+      }
+      100% {
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 183, 3, 0.5);
+      }
     }
 
     h1 {
@@ -234,9 +240,23 @@
       user-select: none;
     }
 
-    .btn-yes { background-color: #ffb703; color: #000; z-index: 15; }
-    .btn-yes:active { transform: scale(0.95); }
-    .btn-no { background-color: #2b2d42; color: white; z-index: 9999 !important; transition: left 0.15s ease-out, top 0.15s ease-out; }
+    .btn-yes { 
+      background-color: #ffb703; 
+      color: #000; 
+      z-index: 15;
+    }
+    
+    .btn-yes:active { 
+      transform: scale(0.95);
+    }
+
+    /* Botón NO */
+    .btn-no { 
+      background-color: #2b2d42; 
+      color: white; 
+      z-index: 9999 !important;
+      transition: left 0.15s ease-out, top 0.15s ease-out;
+    }
 
     .subtext {
       font-family: 'Segoe UI', sans-serif;
@@ -282,7 +302,7 @@
       100% { transform: rotate(-1deg) scale(1.06); }
     }
 
-    /* Tickets */
+    /* Tickets Ampliados y Legibles */
     .tickets-container {
       display: flex;
       flex-direction: column;
@@ -346,14 +366,42 @@
       letter-spacing: 1.5px;
     }
 
-    .ticket-drop-1 { animation: dropTicketMobile 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; }
-    .ticket-drop-2 { animation: dropTicketMobile 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards; }
+    .ticket-drop-1 {
+      animation: dropTicketMobile 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+    }
 
-    @keyframes dropTicketMobile { to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--r)); } }
+    .ticket-drop-2 {
+      animation: dropTicketMobile 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
+    }
 
-    .tick-stub { font-size: 0.65rem; font-weight: 800; opacity: 0.75; text-transform: uppercase; letter-spacing: 0.5px; }
-    .tick-movie { font-family: 'Bangers', cursive; font-size: 1.35rem; color: #d90429; line-height: 1.05; margin: 3px 0; letter-spacing: 0.5px; }
-    .tick-info { font-size: 0.72rem; font-weight: 700; font-family: 'Courier New', monospace; color: #111; line-height: 1.2; }
+    @keyframes dropTicketMobile {
+      to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--r)); }
+    }
+
+    .tick-stub { 
+      font-size: 0.65rem; 
+      font-weight: 800; 
+      opacity: 0.75; 
+      text-transform: uppercase; 
+      letter-spacing: 0.5px;
+    }
+
+    .tick-movie { 
+      font-family: 'Bangers', cursive; 
+      font-size: 1.35rem; 
+      color: #d90429; 
+      line-height: 1.05; 
+      margin: 3px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .tick-info { 
+      font-size: 0.72rem; 
+      font-weight: 700; 
+      font-family: 'Courier New', monospace;
+      color: #111;
+      line-height: 1.2;
+    }
 
     .success-message {
       font-family: 'Permanent Marker', cursive;
@@ -395,14 +443,7 @@
       .tick-movie { font-size: 1.15rem; }
       .tick-info { font-size: 0.65rem; }
       .success-message { font-size: 0.9rem; }
-      .multiverse-portal { width: 100px; height: 100px; bottom: 50px; }
-      .spidey-svg { width: 60px; }
-      .web-line { height: 190px; }
-      @keyframes swingOverCard {
-        0% { transform: translateX(-110px) translateY(0) rotate(-25deg); }
-        50% { transform: translateX(-50%) translateY(10px) rotate(0deg); }
-        100% { transform: translateX(30px) translateY(0) rotate(25deg); }
-      }
+      .multiverse-portal { width: 100px; height: 100px; bottom: 80px; }
     }
   </style>
 </head>
@@ -412,10 +453,10 @@
   <canvas id="particles-canvas"></canvas>
 
   <div class="halftone"></div>
-  <div class="multiverse-web-bg"></div>
   <div class="multiverse-portal"></div>
+  <div class="skyline"></div>
 
-  <!-- Spider-Man Balanceándose sobre las pancartas -->
+  <!-- Spider-Man Colgando -->
   <div class="spidey-container" id="spidey">
     <div class="web-line"></div>
     <svg class="spidey-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -453,7 +494,7 @@
           <div class="ticket-left">
               <div class="tick-stub">Entrada</div>
               <div class="tick-movie">SPIDER-MAN BRAND NEW DAY</div>
-              <div class="tick-info">FECHA: HOY| HORA: AHORA</div>
+              <div class="tick-info">FECHA: NOSE | HORA: TAMPOCO SE</div>
           </div>
           <div class="ticket-right">CINEMA</div>
         </div>
@@ -495,12 +536,15 @@
     const spidey = document.getElementById('spidey');
     const webTemplate = document.getElementById('web-template');
 
-    /* Sistema de Partículas */
+    /* Sistema de Partículas Flotantes */
     const canvas = document.getElementById('particles-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
 
-    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
@@ -518,37 +562,63 @@
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) { this.reset(); }
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          this.reset();
+        }
       }
-      draw() { ctx.save(); ctx.globalAlpha = this.alpha; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
     }
 
-    for (let i = 0; i < 40; i++) { particles.push(new Particle()); }
-    function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); }
+    for (let i = 0; i < 40; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animateParticles);
+    }
     animateParticles();
 
-    /* Inclinación 3D Interactiva */
+    /* Inclinación 3D por Giroscopio de Celular (si está disponible) */
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', (e) => {
         if (!e.gamma || !e.beta) return;
+        // Quita la animación CSS automática si hay giroscopio interactivo activo
+        mainContainer.style.animation = 'borderGlow 3s ease-in-out infinite alternate';
+        
+        const tiltX = Math.min(Math.max((e.beta - 40) / 3, -12), 12);
+        const tiltY = Math.min(Math.max(e.gamma / 3, -12), 12);
+        
         const target = successScreen.classList.contains('hidden') ? mainContainer : successScreen;
-        target.style.animation = 'borderGlow 3s ease-in-out infinite alternate';
-        const tiltX = Math.min(Math.max((e.beta - 40) / 3, -10), 10);
-        const tiltY = Math.min(Math.max(e.gamma / 3, -10), 10);
         target.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
       });
     }
 
-    /* Mover el botón "NO" */
+    // Mover el botón "NO" de forma inteligente
     function moveNoButton(e) {
       if (e) e.preventDefault();
+
       const btnWidth = noBtn.offsetWidth || 90;
       const btnHeight = noBtn.offsetHeight || 45;
+
       const padding = 20;
+      const minX = padding;
       const maxX = window.innerWidth - btnWidth - padding;
+      const minY = padding;
       const maxY = window.innerHeight - btnHeight - padding;
-      const randomX = Math.floor(Math.random() * (maxX - padding + 1)) + padding;
-      const randomY = Math.floor(Math.random() * (maxY - padding + 1)) + padding;
+
+      const randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+      const randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
       noBtn.style.position = 'fixed';
       noBtn.style.left = `${randomX}px`;
       noBtn.style.top = `${randomY}px`;
@@ -558,40 +628,62 @@
     noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
     noBtn.addEventListener('click', moveNoButton);
 
-    /* Disparo de telaraña */
-    window.addEventListener('pointerdown', (e) => { if (e.target.tagName === 'BUTTON') return; createWebShot(e.clientX, e.clientY); });
+    // Disparo de telaraña al toque/clic
+    window.addEventListener('pointerdown', (e) => {
+      if (e.target.tagName === 'BUTTON') return;
+      createWebShot(e.clientX, e.clientY);
+    });
 
     function createWebShot(targetX, targetY) {
       const spideySvg = document.querySelector('.spidey-svg');
       const spideyRect = spideySvg.getBoundingClientRect();
       const startX = spideyRect.left + spideyRect.width / 2;
       const startY = spideyRect.top + spideyRect.height / 2;
+
       const web = webTemplate.cloneNode(true);
-      web.classList.remove('hidden'); web.classList.add('web-shot-svg');
-      const size = Math.random() * 30 + 40; const angle = Math.random() * 360;
-      web.style.width = `${size}px`; web.style.height = `${size}px`;
-      web.style.left = `${startX - size/2}px`; web.style.top = `${startY - size/2}px`;
+      web.classList.remove('hidden');
+      web.classList.add('web-shot-svg');
+      
+      const size = Math.random() * 30 + 40;
+      const angle = Math.random() * 360;
+
+      web.style.width = `${size}px`;
+      web.style.height = `${size}px`;
+      web.style.left = `${startX - size/2}px`;
+      web.style.top = `${startY - size/2}px`;
       web.style.transform = `scale(0.1) rotate(${angle}deg)`;
+
       document.body.appendChild(web);
-      requestAnimationFrame(() => { web.style.left = `${targetX - size/2}px`; web.style.top = `${targetY - size/2}px`; web.style.transform = `scale(1) rotate(${angle + 90}deg)`; });
-      setTimeout(() => { web.style.opacity = '0'; setTimeout(() => web.remove(), 300); }, 500);
+
+      requestAnimationFrame(() => {
+          web.style.left = `${targetX - size/2}px`;
+          web.style.top = `${targetY - size/2}px`;
+          web.style.transform = `scale(1) rotate(${angle + 90}deg)`;
+      });
+
+      setTimeout(() => {
+        web.style.opacity = '0';
+        setTimeout(() => web.remove(), 300);
+      }, 500);
     }
 
-    /* Al presionar ¡SÍ! */
+    // Al presionar ¡SÍ!
     yesBtn.addEventListener('click', (e) => {
       e.stopPropagation();
+
       noBtn.style.display = 'none';
+
+      mainContainer.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
       mainContainer.style.opacity = '0';
       mainContainer.style.transform = 'scale(0.8)';
       
       setTimeout(() => {
           mainContainer.classList.add('hidden');
           successScreen.classList.remove('hidden');
-          // Mantiene la animación activando la clase de éxito
-          spidey.classList.add('spidey-swinging-overlay');
       }, 400);
 
-      // Ráfaga de telarañas
+      spidey.classList.add('spidey-swinging-overlay');
+
       for(let i = 0; i < 12; i++) {
         setTimeout(() => {
           createWebShot(
