@@ -34,7 +34,7 @@
       perspective: 1000px;
     }
 
-    /* Canvas de Partículas Premium */
+    /* Canvas de Partículas */
     #particles-canvas {
       position: absolute;
       top: 0;
@@ -75,6 +75,13 @@
         81% 25%, 84% 25%, 86% 60%, 89% 15%, 93% 15%, 95% 45%,
         100% 45%, 100% 100%
       );
+      transition: opacity 0.5s ease;
+    }
+
+    /* Ocultar skyline en 2da pancarta para que se entienda bien */
+    body.show-success .skyline {
+      opacity: 0;
+      pointer-events: none;
     }
 
     /* Spider-Man SVG Inicial */
@@ -121,27 +128,28 @@
       95% { transform: scaleY(0.1); }
     }
 
-    /* Balanceo de Spider-Man SOBRE LA TARJETA tras presionar SÍ */
+    /* Balanceo de Spider-Man fluido adaptado a Celular */
     .spidey-swinging-overlay {
-      position: absolute !important;
+      position: fixed !important;
       top: 0 !important;
       left: 50% !important;
       right: auto !important;
       z-index: 40 !important;
-      animation: swingOverCardMobile 2.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite alternate !important;
+      margin-left: -30px; /* Centrado respecto al ancho del SVG */
+      animation: swingOverCardMobile 3s ease-in-out infinite alternate !important;
       transform-origin: top center !important;
     }
 
     .spidey-swinging-overlay .web-line {
-      height: 110px !important;
+      height: 90px !important;
     }
 
     @keyframes swingOverCardMobile {
-      0% { transform: translateX(-100px) rotate(-22deg) scale(1); }
-      100% { transform: translateX(40px) rotate(22deg) scale(1); }
+      0% { transform: translateX(-60px) rotate(-18deg); }
+      100% { transform: translateX(60px) rotate(18deg); }
     }
 
-    /* Contenedores Principales con Animación 3D para Móvil */
+    /* Contenedores Principales */
     .container {
       position: relative;
       z-index: 10;
@@ -160,27 +168,15 @@
       transition: transform 0.15s ease-out;
     }
 
-    /* Flotación 3D constante ideal para pantallas táctiles */
     @keyframes mobileCardFloat {
-      0% {
-        transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-      }
-      50% {
-        transform: translateY(-8px) rotateX(3deg) rotateY(-4deg);
-      }
-      100% {
-        transform: translateY(4px) rotateX(-3deg) rotateY(4deg);
-      }
+      0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+      50% { transform: translateY(-8px) rotateX(3deg) rotateY(-4deg); }
+      100% { transform: translateY(4px) rotateX(-3deg) rotateY(4deg); }
     }
 
-    /* Brillo de borde pulsante */
     @keyframes borderGlow {
-      0% {
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(217, 4, 41, 0.3);
-      }
-      100% {
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 183, 3, 0.5);
-      }
+      0% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 20px rgba(217, 4, 41, 0.3); }
+      100% { box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 183, 3, 0.5); }
     }
 
     h1 {
@@ -227,7 +223,6 @@
       transform: scale(0.95);
     }
 
-    /* Botón NO */
     .btn-no { 
       background-color: #2b2d42; 
       color: white; 
@@ -279,7 +274,7 @@
       100% { transform: rotate(-1deg) scale(1.06); }
     }
 
-    /* Tickets Ampliados y Legibles */
+    /* Tickets Legibles */
     .tickets-container {
       display: flex;
       flex-direction: column;
@@ -646,6 +641,7 @@
       e.stopPropagation();
 
       noBtn.style.display = 'none';
+      document.body.classList.add('show-success');
 
       mainContainer.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
       mainContainer.style.opacity = '0';
