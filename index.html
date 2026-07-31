@@ -26,7 +26,7 @@
 
     body {
       background-image: 
-        radial-gradient(circle at 50% 50%, rgba(123, 44, 191, 0.25) 0%, rgba(11, 0, 26, 0.95) 100%),
+        radial-gradient(circle at 50% 50%, rgba(123, 44, 191, 0.3) 0%, rgba(11, 0, 26, 0.98) 100%),
         repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 10px);
       display: flex;
       justify-content: center;
@@ -58,20 +58,19 @@
       z-index: 2;
     }
 
-    /* Portal Multiverso Optimizado */
+    /* Portal Multiverso */
     .multiverse-portal {
       position: absolute;
-      bottom: 15%;
-      right: 5%;
-      width: 110px;
-      height: 110px;
+      top: 8%;
+      right: 6%;
+      width: 100px;
+      height: 100px;
       background: radial-gradient(circle, rgba(255,255,255,0) 40%, rgba(255,0,85,0.8) 60%, rgba(255,183,3,1) 100%);
       border-radius: 50%;
       box-shadow: 0 0 25px #ff0055, 0 0 50px #ffb703, inset 0 0 15px #fff;
       z-index: 3;
       animation: portalPulse 4s linear infinite;
       pointer-events: none;
-      backface-visibility: hidden;
     }
 
     @keyframes portalPulse {
@@ -80,57 +79,50 @@
       100% { transform: rotate(360deg) scale(1); filter: hue-rotate(0deg); }
     }
 
-    /* Silueta Ciudad sin desbordes */
-    .skyline {
+    /* Resplandor Neón Inferior */
+    .city-glow {
       position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 100%;
-      height: 160px;
-      background: linear-gradient(to bottom, #090014 0%, #000 100%);
-      z-index: 4;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120%;
+      height: 180px;
+      background: radial-gradient(ellipse at center bottom, rgba(217, 4, 41, 0.35) 0%, rgba(123, 44, 191, 0.2) 50%, transparent 80%);
+      border-radius: 50% 50% 0 0;
+      filter: blur(20px);
+      z-index: 3;
       pointer-events: none;
-      backface-visibility: hidden;
-      clip-path: polygon(
-        0% 100%, 0% 55%, 2% 50%, 4% 55%, 5% 40%, 7% 40%, 8% 55%,
-        10% 30%, 13% 30%, 15% 50%, 17% 20%, 20% 20%, 22% 60%,
-        25% 45%, 28% 45%, 30% 60%, 33% 10%, 38% 10%, 40% 55%,
-        43% 40%, 46% 40%, 48% 65%, 52% 35%, 55% 35%, 58% 60%,
-        61% 15%, 66% 15%, 68% 50%, 71% 0%, 76% 0%, 78% 40%,
-        81% 25%, 84% 25%, 86% 60%, 89% 15%, 93% 15%, 95% 45%,
-        100% 45%, 100% 100%
-      );
     }
 
-    /* Spider-Man SVG Inicial Corrección de Bug */
+    /* Spider-Man Contenedor Inicial */
     .spidey-container {
       position: absolute;
-      top: -30px;
+      top: -15px;
       right: 12%;
-      z-index: 30;
+      z-index: 25;
       display: flex;
       flex-direction: column;
       align-items: center;
       transform-origin: top center;
-      animation: swing 3.5s ease-in-out infinite alternate;
+      animation: swingInitial 3.5s ease-in-out infinite alternate;
       pointer-events: none;
       will-change: transform;
     }
 
-    @keyframes swing {
+    @keyframes swingInitial {
       0% { transform: rotate(-6deg); }
       100% { transform: rotate(6deg); }
     }
 
     .web-line {
       width: 2px;
-      height: 140px;
+      height: 110px;
       background: linear-gradient(to bottom, rgba(255,255,255,0.2), #fff 80%);
       box-shadow: 0 0 6px #fff;
     }
 
     .spidey-svg {
-      width: 52px;
+      width: 48px;
       height: auto;
       margin-top: -5px;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,0.7));
@@ -147,43 +139,48 @@
       95% { transform: scaleY(0.1); }
     }
 
-    /* Balanceo fluido de Spider-Man sobre la pantalla */
-    .spidey-swinging-overlay {
-      position: fixed !important;
-      top: -20px !important;
+    /* BALANCEO FLUIDO POR DELANTE DE LAS ENTRADAS */
+    .spidey-swimming-success {
+      top: -10px !important;
       left: 50% !important;
       right: auto !important;
-      z-index: 100 !important;
-      animation: swingMobileFixed 3.5s ease-in-out infinite alternate !important;
-      transform-origin: top center !important;
+      z-index: 50 !important; /* POR DELANTE DE LA TARJETA Y TICKETS */
+      pointer-events: none;
+      animation: swingFrontFluid 3.2s ease-in-out infinite alternate !important;
     }
 
-    .spidey-swinging-overlay .web-line {
-      height: 80px !important;
+    .spidey-swimming-success .web-line {
+      height: 115px !important; /* Extensión ideal para quedar frente a las entradas */
     }
 
-    @keyframes swingMobileFixed {
-      0% { transform: translateX(-90px) rotate(-20deg); }
-      100% { transform: translateX(40px) rotate(20deg); }
+    @keyframes swingFrontFluid {
+      0% {
+        transform: translate3d(-105px, 0, 0) rotate(-22deg);
+      }
+      50% {
+        transform: translate3d(0px, 12px, 0) rotate(0deg);
+      }
+      100% {
+        transform: translate3d(105px, 0, 0) rotate(22deg);
+      }
     }
 
-    /* Tarjeta Principal */
+    /* Tarjeta Principal y Pantalla Final */
     .container {
       position: relative;
       z-index: 10;
       text-align: center;
       width: 88%;
-      max-width: 480px;
+      max-width: 460px;
       padding: 24px 18px;
-      background: rgba(12, 4, 28, 0.85);
+      background: rgba(12, 4, 28, 0.88);
       border-radius: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 2px solid rgba(255,255,255,0.18);
       transform-style: preserve-3d;
       will-change: transform;
       animation: mobileCardFloat 5s ease-in-out infinite alternate, borderGlow 3s ease-in-out infinite alternate;
-      backface-visibility: hidden;
     }
 
     @keyframes mobileCardFloat {
@@ -193,7 +190,7 @@
     }
 
     @keyframes borderGlow {
-      0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 18px rgba(217, 4, 41, 0.3); }
+      0% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 18px rgba(217, 4, 41, 0.35); }
       100% { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9), 0 0 28px rgba(255, 183, 3, 0.45); }
     }
 
@@ -258,17 +255,17 @@
 
     /* Pantalla de Éxito */
     .success-screen {
-      animation: popIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     .success-screen h1 {
-      font-size: 2.3rem;
+      font-size: 2.2rem;
       color: #ffea00;
-      text-shadow: 3px 3px 0px #d90429, 6px 6px 0px #000;
-      margin-bottom: 10px;
+      text-shadow: 3px 3px 0px #d90429, 5px 5px 0px #000;
+      margin-bottom: 8px;
     }
 
     .multiverse-badge {
@@ -285,7 +282,7 @@
       margin-bottom: 8px;
     }
 
-    /* Tickets Ajustados */
+    /* Tickets */
     .tickets-container {
       display: flex;
       flex-direction: column;
@@ -297,8 +294,8 @@
 
     .ticket {
       width: 100%;
-      max-width: 300px;
-      height: 105px;
+      max-width: 290px;
+      height: 100px;
       background: #fff;
       color: #000;
       border-radius: 10px;
@@ -308,7 +305,7 @@
       overflow: hidden;
       display: flex;
       opacity: 0;
-      transform: translateY(-80px) scale(0.7);
+      transform: translateY(-60px) scale(0.7);
     }
 
     .ticket::before, .ticket::after {
@@ -345,24 +342,24 @@
       transform: rotate(180deg);
       color: #fff;
       font-family: 'Bangers', cursive;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       letter-spacing: 1px;
     }
 
-    .ticket-drop-1 { animation: dropTicketMobile 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards; }
-    .ticket-drop-2 { animation: dropTicketMobile 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards; }
+    .ticket-drop-1 { animation: dropTicket 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.15s forwards; }
+    .ticket-drop-2 { animation: dropTicket 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.35s forwards; }
 
-    @keyframes dropTicketMobile {
+    @keyframes dropTicket {
       to { opacity: 1; transform: translateY(0) scale(1) rotate(var(--r)); }
     }
 
     .tick-stub { font-size: 0.6rem; font-weight: 800; opacity: 0.75; text-transform: uppercase; }
-    .tick-movie { font-family: 'Bangers', cursive; font-size: 1.25rem; color: #d90429; line-height: 1.05; margin: 2px 0; }
-    .tick-info { font-size: 0.68rem; font-weight: 700; font-family: 'Courier New', monospace; color: #111; line-height: 1.15; }
+    .tick-movie { font-family: 'Bangers', cursive; font-size: 1.2rem; color: #d90429; line-height: 1.05; margin: 2px 0; }
+    .tick-info { font-size: 0.65rem; font-weight: 700; font-family: 'Courier New', monospace; color: #111; line-height: 1.15; }
 
     .success-message {
       font-family: 'Permanent Marker', cursive;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       background: #ffea00;
       color: #000;
       padding: 8px 14px;
@@ -371,11 +368,11 @@
       margin-top: 4px;
       box-shadow: 4px 4px 0px #000;
       transform: rotate(-1deg);
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     @keyframes popIn {
-      0% { opacity: 0; transform: scale(0.7); }
+      0% { opacity: 0; transform: scale(0.8); }
       100% { opacity: 1; transform: scale(1); }
     }
 
@@ -391,14 +388,14 @@
     }
 
     @media (max-width: 380px) {
-      h1 { font-size: 1.75rem; }
+      h1 { font-size: 1.7rem; }
       .container { padding: 16px 10px; }
       .btn { padding: 10px 18px; font-size: 1rem; }
-      .success-screen h1 { font-size: 1.9rem; }
-      .ticket { max-width: 250px; height: 98px; }
+      .success-screen h1 { font-size: 1.85rem; }
+      .ticket { max-width: 250px; height: 95px; }
       .tick-movie { font-size: 1.05rem; }
       .tick-info { font-size: 0.6rem; }
-      .success-message { font-size: 0.85rem; }
+      .success-message { font-size: 0.82rem; }
     }
   </style>
 </head>
@@ -409,7 +406,7 @@
 
   <div class="halftone"></div>
   <div class="multiverse-portal"></div>
-  <div class="skyline"></div>
+  <div class="city-glow"></div>
 
   <!-- Spider-Man SVG Inicial -->
   <div class="spidey-container" id="spidey">
@@ -543,7 +540,7 @@
     }
     animateParticles();
 
-    // Mover el botón "NO" evitando que se salga de la pantalla
+    // Mover el botón "NO"
     function moveNoButton(e) {
       if (e) e.preventDefault();
 
@@ -622,7 +619,7 @@
           successScreen.classList.remove('hidden');
       }, 350);
 
-      spidey.classList.add('spidey-swinging-overlay');
+      spidey.classList.add('spidey-swimming-success');
 
       for(let i = 0; i < 10; i++) {
         setTimeout(() => {
